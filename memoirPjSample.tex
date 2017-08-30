@@ -1,0 +1,2326 @@
+% Kindle KDP Paperback, Latex using the Memoir package
+% https://www.ctan.org/pkg/memoir?lang=en
+
+% Ian Hocking, August 2017
+
+% Usage:
+
+% This template should generate a 5' x 8' PDF
+% suitable for the interior of a paperback.
+% It's intended for the Amazon Kindle Paperback programme.
+
+% When generated*, open the PDF and delete the first, blank page,
+% as well as the blank page prior to the copyright notice.
+% Upload this to the KDP system and it should flow appropriately
+% (with 'About the Author' being on a recto, or right-side leaf
+% and chapters beginning recto too)
+
+% Use a Latex distribution for your platform: https://www.latex-project.org 
+
+\documentclass[postvopaper, openright, twoside, onecolumn, final]{memoir}
+% postvopaper is 8x5 inch stock (untrimmed)
+% openright: each chapter will start on a recto page (right hand leaf when book is open)
+% twoside: document will be published with printing on both sides of paper
+% onecolumn: text is one column, not multi-column
+% final: finalise
+
+% Load packages
+\usepackage[T1]{fontenc}                   % Fundamental
+\usepackage[latin1]{inputenc}              % For typographical accents etc.
+\usepackage{lettrine}                      % For drop caps
+\usepackage[ngerman,french,english]{babel}
+
+% Set document options
+\settypeblocksize{5in}{3in}{*}             % Define the 'typeblock', i.e. the area that holds the main text
+\setlength\parindent{9pt}                  % Size of the paragraph indent
+
+% The default mode for LaTeX typesetting is \fussy where the (variation of) interword spacing in justified text is kept to a minimum. Following the \sloppy declaration there may be a much looser setting of justified text. \midsloppy is between the two. So:
+\midsloppy
+
+% The following should help with widow/orphan control
+\clubpenalty=10000
+\widowpenalty=10000
+\raggedbottom
+
+% Header options 
+\addtopsmarks{headings}{}{
+  \createmark{chapter}{left}{nonumber}{}{}
+}
+\pagestyle{headings} % activate changes
+
+% Suppress page numbers in front matter
+\usepackage{etoolbox}
+\makeatletter
+\aliaspagestyle{title}{empty} % suppress the page number after \maketitle
+\let\origps@chapter\ps@chapter
+\preto\frontmatter{\let\ps@chapter\ps@empty\pagestyle{empty}}
+\preto\mainmatter{
+  \cleardoublepage
+  \let\ps@chapter\origps@chapter\pagestyle{headings}}
+\makeatother
+
+
+
+% Set titling
+\title{PROPER JOB}
+\author{Ian M Hocking}
+\date{}                  
+
+
+
+
+
+\begin{document}
+
+\frontmatter
+
+% Temporary page (to be manually deleted after creating PDF)
+\newpage\null\thispagestyle{empty}\newpage
+
+
+% Page: About the Author
+\par\vspace*{.1\textheight}{\centering \textsc{about the author}\par}
+\setlength{\parskip}{10pt}                                             % changes vertical space between paragraphs
+\noindent
+Ian M Hocking is a university lecturer and researcher 
+based in Canterbury. Three things about him. One: he 
+almost vomited raw shark over the Prime Minister of 
+Iceland. Two: he likes to run (for instance, away from 
+Prime Ministers). Three: he spent several years 
+researching this novel and wishes he hadn't.
+
+\noindent
+As Ian Hocking (sans M), he writes character-based science 
+fiction thrillers with a philosophical edge. Otherwise, 
+he has been known to write comedy fiction, like what this is.
+
+\noindent
+Come with him now into a world of sand, surf, and vanilla essence.
+
+\begin{quotation}
+
+\noindent
+
+Like Spike Milligan---but in a good way.
+
+\sourceatright{Mil Millington}
+
+\end{quotation}
+
+
+% Page: By Ian Hocking
+
+\par\vspace*{.1\textheight}{\centering \textbf{By Ian Hocking}\par}
+\setlength{\parskip}{10pt}
+\noindent
+
+\vspace{2mm} %2mm vertical space
+
+\centerline{\emph{The Saskia Brandt Series}}
+\vspace{2mm} 
+
+\centerline{\textsc{déjà vu}}
+\vspace{2mm}
+
+\centerline{\textsc{flashback}}
+\vspace{2mm}
+
+\centerline{\textsc{the amber rooms}}
+\vspace{2mm}
+
+\centerline{\emph{The Agents Temporal Series}}
+\vspace{2mm}
+
+\centerline{\textsc{red star falling}}
+\vspace{2mm}
+
+\centerline{\emph{Short Stories}}
+\vspace{2mm}
+
+\centerline{\textsc{solaristics}}
+\vspace{2mm}
+
+\centerline{\emph{As Ian M Hocking}}
+\vspace{2mm}
+
+\centerline{\textsc{proper job}}
+
+
+% Page: Title
+
+\begin{titlingpage}
+
+\maketitle
+
+\end{titlingpage}
+
+\newpage\thispagestyle{empty}
+\null\vfill
+\noindent
+\setlength{\parskip}{10pt}
+
+\begin{flushleft}Copyright (c) 2015 by Ian M Hocking
+
+http://ianhocking.com
+
+http://twitter.com/ian\_hocking
+
+Unless otherwise stated, this story is a work of fiction. Names,
+characters, places, and incidents are either products of the author's
+imagination or used fictitiously. Any resemblance to actual events,
+locales, or persons, living or dead, is entirely coincidental.
+
+All rights reserved.
+
+No part of this publication may be reproduced or transmitted in any form
+or by any means, electronic or mechanical, without permission in writing
+from the author.
+
+Ian Hocking has asserted his right under the Copyright, Designs and
+Patents Act 1988 to be identified as the author of this work.
+
+Cover designed by the author---obviously.
+
+Edited by Clare Christian.
+
+Proofed by Olivia Wood.
+
+Version 28972472
+\end{flushleft}
+
+\par\vspace*{.35\textheight}{\centering For Alvin\par}
+
+% Parskip is the size of the gap between paragraphs. We want
+% this to be zero from this point on 
+\setlength{\parskip}{0\baselineskip} % Note: author of Memoir warns this may cause problems
+
+
+
+\mainmatter
+
+% This makes sure the gutter is larger than Memoir default
+\setlrmargins{*}{*}{0.666} \checkandfixthelayout
+
+\chapter{}
+
+\begin{flushright}
+\emph{Cornwall: Summer, 1999}
+\end{flushright}
+
+% Lettrine package handles drop cap; first brace includes drop cap;
+% second brace is small caps
+\lettrine{I}{ turned} nonchalantly to Old Boy. We had run all the way from his house
+to St Austell's Holmbush industrial estate, and my metabolism was
+halfway between aerobic and anaerobic respiration. It made nonchalance
+tricky to achieve.
+
+I'd known Old Boy since our first A-Level physics class, when, within
+minutes of meeting him, I'd spilled a beaker of mercury down his leg. It
+broke the ice wonderfully. Away we chatted, the two of us, until halfway
+through the lesson I realised I had forgotten his name. However, we had
+passed that conversational Rubicon beyond which it is simply no longer
+cricket to re-enquire what your new friend is called. Months went by,
+each filled with attempts to discover his name, but since he spoke to no
+one but me and his suicidal dog, there was no hope of overhearing it. By
+the following Easter, I had settled on `Old Boy', having worked through
+the Cornish appellations `Ma'ey', `Wussnem', and `Wussicle'.
+
+Old Boy was originally from Nottingham. His parents were bakers, and I
+had convinced him to accompany me on this job interview so he could
+ditch the early starts and the untold terrors of crimping elbow for a
+new position doing whatever it was they did at Smart Publishing. Plus,
+he could keep me company.
+
+`Andy,' he said, `I'm getting my nervous ear.'
+
+He pushed back a mousy lock of home-cut hair and showed me. He was
+right. It was twitching.
+
+`Easy, mate,' I said, kneading a stitch below my ribs, `easy like Sunday
+morning.'
+
+It's hard enough being seventeen, single and awkward. I could tell you
+that. It's even harder being seventeen, single, awkward and Old Boy. He
+could tell you that. Or, at least, he would if he could. He'd actually
+be dumbfounded with awkwardness.
+
+That's Old Boy.
+
+Me? You know me already. I'm the nondescript who sat at the front in
+double Maths and seemed gay but actually wasn't. I'm friendly enough,
+but I sound like someone who has ended up at your grubby school because
+he has been expelled from one where first years fag, rugby is called
+rugger, and desk graffiti features Latin with properly declined verbs.
+
+`Everything's fine,' I said. `Look, it's only 7:59.'
+
+`You're right,' he said. The pained line of his mouth bent into a smile.
+`We made it.'
+
+`And relax,' I said.
+
+In my head, I heard a cheerful, electronic chirrup like the sound a
+computer makes when you've completed a level in a game.
+
+\emph{Nonchalance unlocked.}
+
+The building complex yonder---the headquarters of Smart Publishing---was
+knocked down to make way for a retail park in 2008, but, in 1999, when
+Old Boy and I were leaning on its gate and straightening our ties, its
+complex of dirty buildings dominated the estate. An incinerator tower
+was already farting its ashy nonsense into the air and it was barely 8
+am. On the forecourt, men with clipboards jogged out of one door and in
+another. They looked harassed and unhappy. Forklifts trundled through
+curtains of plastic. Lorries queued, carrying paper rolls the size of
+houses.
+
+I took off my glasses and gave them a wipe with my handkerchief.
+
+`Ready?' I asked.
+
+He tried to smile. `Ready.'
+
+`Late for the interview, isn't it?' asked a Welshman.
+
+The sudden appearance of Mr Smart was only a whisker less unsettling
+than a firecracker in a library. He looked shorter than his local TV
+adverts had suggested. His age was difficult to judge. His red hair and
+beard reminded me of Matthew Corbett, the bloke who made a living with
+his hand up a bear puppet called Sooty. Indeed, he had the unsettling
+all-purpose gusto of a 1980s science programme presenter.
+
+`Sorry,' I said. `All these factories look alike.'
+
+`Do I look like I want to waste time?'
+
+`I'm sorry?'
+
+`Stop saying that. Do I look like I want to waste time?'
+
+I stared at him for a while. Then I said, `No?'
+
+Before I knew it, Mr Smart was halfway across the forecourt. He made
+sudden turns according to coloured lines that marked a safe route
+through the traffic of forklifts and lorries. As Old Boy and I hurried
+to catch up, he reached a door in the main building and swiped a card
+through the lock.
+
+He looked at me.
+
+Nodded once.
+
+Then he sprinted into the building with the desperate scramble of a
+father who has left his infant daughter in a receding taxi.
+
+`Puzzling,' I said.
+
+Old Boy barged past me. `It's part of the interview, Andy! Run for it!'
+
+I groaned.
+
+`But I'm already sweaty.'
+
+`The job,' returned his fading voice. `The job!'
+
+`Nonchalantly does it, mate,' I called after him.
+
+I walked into the building. The only remnants of Mr Smart's dash were
+the tick-tock of inspirational leadership posters and a fallen plant. I
+picked it up. A woman in a plain uniform emerged from the T-junction
+ahead, tugging a vacuum cleaner.
+
+She nodded at me.
+
+I nodded back.
+
+`Mr Smart's office?'
+
+`Take a left here, then two rights. Go up the stairs until you're at the
+top of the building.'
+
+Very slowly, as though trying not to trip a motion sensor, I gave her
+the plant.
+
+\section*{}
+
+Mr Smart's office had a panoramic view of St Austell Bay. His desk was
+huge and looked like it could flip over to reveal a working model of his
+plan to spray Bodmin with some kind of gas. He stood with his back to
+the door, surveying the distant sea, hands clasped behind him. Old Boy
+was standing near a bookcase at the rear of the room. He was thumbing
+desperately through a catalogue.
+
+`Tell me, Mr Carrick,' said Mr Smart. `Whatever happened to Bobby
+Davro?'
+
+`Who?'
+
+He waited.
+
+`I see,' I said, seeing nothing.
+
+From there, the interview just got weird.
+
+`Smart Publishing,' he said. `What do we do, and how do we do it, Mr
+Carrick?'
+
+To give myself time, I looked at Old Boy. He was running a finger
+through the index of the catalogue. He was obviously panicking.
+
+`Mate,' I whispered, `what are you looking for?'
+
+`A left-handed screwdriver,' he said.
+
+Mr Smart turned. `We publish it all here. \emph{Cows! House and Gnome.
+The Periodical Review of Pugging.}'
+
+`Sounds---niche.'
+
+`How old are you, son?' he asked.
+
+`Almost eighteen.'
+
+`Seventeen, in other words.'
+
+Fiercely, he separated the pages of my CV. Beneath them, I saw a page of
+Old Boy's. I leaned forward in the hope of learning his name, but Mr
+Smart put his elbows on the desk and looked at me once more.
+
+`So, you've got a full complement of GCSEs,' he said, `all of them A
+grades. Further maths, no less. Think quickly: What's eighty-six divided
+by eighty-five?'
+
+\section*{}
+
+Factory Two was the size of our college assembly hall and just as dirty.
+It had a low ceiling of asbestos tiles. Half of the floor space was
+obscured with palettes of magazines and a huge contraption that was fed
+by a conveyor belt. Nearer the door was a dozen workbenches arranged in
+file. At these benches stood hardy women. As we walked towards them, I
+could see their hands putting inserts into magazines like card sharps
+playing Find the Lady.
+
+One of the women smiled at us. Old Boy gave her a little wave.
+
+`Look,' she called. `New blood!'
+
+Old Boy clutched my shoulder. I patted his hand and tried to maintain a
+reasonable distance from him.
+
+`Don't worry about her, my handsome,' said another. She laughed, then
+stopped abruptly. Her face was blank. `Worry about \emph{me}.'
+
+Laughter spread throughout the room. I smiled and steered us both
+towards what looked like a tennis umpire's chair near the loading door.
+At its top was the factory supervisor, Madame. She looked unfriendly.
+
+`Stop there,' she said, climbing down. Just as an ancient Chinese
+mandarin would grow his nails to broadcast contempt for manual work, so
+too did Madame. Such were their length that a Madagascan aye-aye would
+have been happy to tap trees with them. She was very short. Looking up
+at us, her nose wrinkled like that of someone forced to sniff sour milk.
+
+`Now, are you pair going to be darlings or tinkers?'
+
+I looked at Old Boy and wondered whether we should have arranged a `Make
+for the hills!' signal. I could tell he was thinking the same.
+
+`One of each?' I suggested.
+
+For a moment, Madame's eyes threatened to turn us to stone, but then she
+giggled. We braced ourselves. Her giggle became a wheeze that expelled
+her smoky breath down to the last mouthful, until it became a series of
+gasps that were progressively painful to hear. Turning blue, she waved
+dismissively. `You keep up that sense of humour, my handsome. You'll
+last longer. Got your G180s? Your GT4s?'
+
+We gave her the paperwork.
+
+`Right,' she said, `I suppose I should show 'ee around.'
+
+We drifted into the files of workers. I felt like the president of a
+banana republic inspecting his bananas. Most of the women were in their
+fifties. They had tattooed eyebrows, sun-dried skin and piratical
+smiles.
+
+`They ain't much but you'll get used to their ways as the months go by,'
+Madame croaked, her gaze raking the women with an intensity I usually
+associated with small-arms fire.
+
+`Months, eh?' I said, laughing loudly. `Will you excuse us for a
+minute?'
+
+I put my arm around Old Boy and steered him into the centre of the
+aisle, where we could not be overheard.
+
+`Now,' I whispered, `don't panic when I you ask this.'
+
+`Ask me what?'
+
+I looked both ways, then said, `Does anyone know we're here?'
+
+`Right here? Nope.' He took out his phone. He swallowed. `No reception,
+Andy.' He glanced at the fire exit. `No \emph{reception}.'
+
+I let out a long sigh and thought about the summer, and my scattered
+circle of friends from college. Nobody was doing this for the beer
+money. We had to work. My textbooks wouldn't buy themselves. Pained, I
+looked at Old Boy and gave him a Musketeer-calibre slap on the back.
+
+Fact was, Old Boy needed this job. If he had to keep working at his
+parents' bakery, with its night shifts and dark corners, he would lose
+his last connection to the outside world and transform into some species
+of serial killer who left a pasty next to his victims. I could see it
+now; the \emph{St Austell Packet} would dub him the Night Crimper.
+
+`Spin the dial on your chastity belt and set your charm to stun,' I
+said. `We're staying.'
+
+`One of them just licked her teeth at me.'
+
+`Mate, just remember what's waiting for you at home. Pasty crimping and
+days that start the night before.'
+
+With the delicacy of a shark's head bursting through the bottom of a
+pedalo, Madame stepped between us.
+
+`Gad,' she said, `you en't got a pair of balls between 'ee, have 'ee?'
+
+`I'm sure you're right,' I said, mindful of the reality of assisted
+hara-kiri at her talons.
+
+`Um,' added Old Boy.
+
+`You see that grey door on the left?'
+
+`We do.'
+
+`Kitchen.'
+
+`Understood.'
+
+`You see that grey door on the right?'
+
+`We do.'
+
+`Shit house. Hope you enjoyed the tour, my lovelies. Now you,' she said,
+pointing a stiletto-like finger at Old Boy, `set up here.' She rounded
+on me. `But you, my lover, you'm going on the \emph{shrink wrap}.'
+
+Around us, all conversation stopped. The noise dwindled to the extractor
+fans, a radio advert for double-glazing, and the lonesome beep-beep of a
+forklift truck somewhere. The ladies looked at me. Old Boy checked his
+carotid pulse and counted silently. The malice in Madame's eyes--it
+scampered from one orb to another, making her blink--suggested that I
+should grasp her collar and wail, `Not the shrink wrap! Anything but the
+shrink wrap!'
+
+`Mm, OK,' I said.
+
+Her expression soured. `Follow me.'
+
+A worried Old Boy tapped his forehead in salute as I reversed away. I
+returned the gesture and a lopsided smile.
+
+Shrink wrap. How bad could it be?
+
+But my cool thawed as we approached the thing. It was clearly an
+infernal machine of the first water. It comprised an oven fed by a rough
+conveyor. The oven rattled with a power I associated with
+barely-contained rage. The lights of a dust-covered console gave some
+insight, presumably, into the contraption's fell brain. These lights
+were red and they were throbbing.
+
+`Very nice,' I said. `What does it do?'
+
+She cackled. `Yeah, you'll fit in alright.'
+
+`No, seriously. What does it do?'
+
+`Diddy Brooks,' she said wistfully, transported by a memory, `he used to
+work on the shrink wrap. He had a sense of humour.'
+
+`Don't tell me. He was shrunk and wrapped.'
+
+Madame said nothing. Instead, with a smile, she slapped a red button in
+the centre of the console. Then she walked away. The machine awoke,
+accompanied by a sound that could only be described as a bus fart with
+soot follow-through. The rear conveyor started, then the front conveyor.
+A yellow light began to flash on top and a siren blasted wah, wah,
+\emph{waaaaaah}. I covered my ears and ran in a very small circle a few
+times. Then I detached at a tangent and hurried to Madame.
+
+`But what am I meant to \emph{do}?'
+
+`Gad.'
+
+`I know. It's awful, isn't it? Training.'
+
+She pointed at something near the mouth of the shrink wrap. `See that?'
+
+`Yes, a pallet with magazines on top.'
+
+She pointed near its arse. `See that?'
+
+`An empty pallet.'
+
+`Put the magazines through, one bundle at a time, and when they come
+out, sling 'em onto the pallet.'
+
+`So I need to move constantly from one end to another?'
+
+`You got it.'
+
+`Wouldn't it be more efficient,' I said, bracing myself, `to have one
+person at each end?'
+
+She fixed me with a frown that lasted long enough for me to think about
+waving my fingers before her deadened eyes. Then she laughed and walked
+back to the umpire's chair, mounting it with the uncanny fluency of a
+chimp.
+
+I watched her settle into the chair and click the safety belt.
+
+Sighing, I set to work. The first order of business was to cut my palm
+on the plastic strap that tied the magazine bundle. This done, I
+wandered to the kitchen in search of a first-aid kit. Five minutes
+later, I was on the shrink wrap, heaving bundles with the best of
+them---that is, me. In an effort to pass the time, I worked like the
+Devil Himself for a spell, then checked my watch. 11:05 am. I tried
+working hammer and tongs. The watch read 11:08. I switched to working
+like a man possessed. 11:09. I briefly flirted with working like it was
+going out of fashion, and when I saw that my watch still read 11:09, I
+put it next to my ear and shook it. Broken. Squashed between a magazine
+bundle and the conveyor belt.
+
+`Excuse me, do you know when lunch is?' I said to a short woman as she
+dropped her bundle of magazines on the pile. In reply, she cracked her
+knuckles.
+
+`Well,' I said, `that's---'
+
+`Oi!' screamed Madame, `you'm backed up.'
+
+`Sorry?' I said.
+
+`I'll give you ``sorry''.'
+
+Without thinking, I snapped. `I'd rather just know what you're talking
+about.'
+
+Judging from her baby-in-a-high-chair wobble, she wanted to box my ears
+for me, but the action would involve climbing down, walking, and so on
+and so forth. Instead, she extended a hand towards the exit of the
+shrink wrap. Her nail was almost long enough to tickle it. `You've been
+loading up for half an hour---'
+
+\emph{Blimey,} I thought, \emph{has it been only half an hour?}
+
+`---and you haven't stacked the processed bundles on the pallet. That
+forklift's waiting there to put the pallet on the lorry.'
+
+I stepped away from the loader and looked around the machine. There was
+indeed a forklift truck driver on the other side. The driver was dozing
+on his steering wheel.
+
+`Oh, yeah.'
+
+`I'll give you ``Oh, yeah''.'
+
+I walked to the rear of the shrink wrap. My magazine bundles had been
+neatly covered in a cellophane-like plastic. I picked one up. It was
+hot. A pair of gloves hit the side of my head. I thanked Madame and put
+them on. They were large enough for an old-fashioned feather striptease.
+
+`Any big Mickey Mouse ears to go with these?' I asked nobody.
+
+I loaded the bundles onto the pallet with as little clumsiness as
+possible, which was a great deal. Half an hour later, having noted with
+increasing alarm the popping sounds coming from my lower back, the
+pallet was full. `Well done, my lover,' called Madame. Her smile
+switched off. `I want 'ee to do one pallet every twenty minutes.'
+
+I leaned against the conveyor cowl and mopped my forehead with one of
+the gloves. It knocked my glasses off and I crouched wearily, shaking
+off a mitt, to put them back on. As I stood up, the forklift skidded to
+a stop less than an inch from my nose. The loading prongs were knighting
+my shoulders.
+
+`Are you trying to bloody kill me?' I said.
+
+`Ah, to be sure, I'm not so, no,' said someone who was clearly not
+Irish. He murmured, `But I bet ye deserve it.'
+
+I squinted. `Doogie?'
+
+`Ah, you're wrong there, so you are. Oi'm Wade.'
+
+`No. You're Doogie Lobb and that's the worst Irish accent I've ever
+heard.'
+
+`Oi'm Wade, so I am.'
+
+`You're Doogie, so you aren't.'
+
+He tapped his identification badge. `Wade Rabey.'
+
+`Wade Rabey? I think you're confusing yourself with your step-dad.'
+
+`Wade. Rabey. If you get my drift, so you do.'
+
+`Why are you winking, Doogie?'
+
+Madame piped up: `What're you pair chitterin' about?'
+
+Doogie fumbled with the controls and reversed the forklift into a
+stanchion. Something plastic broke on the back of the vehicle and its
+prongs wobbled.
+
+`Christ,' Madame continued, `you'll scat the place down if you don't
+look out.'
+
+I put my glasses on and watched my best friend, Doogie, make sudden
+turns, slide, teeter on two wheels, and generally avoid going anywhere
+near his intended pallet despite cavalry-charge arm gestures in its
+direction.
+
+I could not fathom what he was doing driving the forklift. The previous
+night, over a pint of the Speckled Dreckley, the three of us--Old Boy
+included--had been talking about the job openings here at Smart
+Publishing. Chiefly, this involved Doogie winding up Old Boy with
+stories of workers crushed beneath rolls of paper, and bleaching
+chemicals that turned your eyeballs totally white if inhaled.
+
+To my knowledge, Doogie was still teaching kite surfing on Fistral
+Beach, which he had been doing for the past month. It had followed a
+stint as a burger van man (he was fired for falling asleep), a classroom
+helper at Penrice Comprehensive (he spelled `lunch' as `l-u-n-t-c-h';
+was fired), and a---brace yourself---skiing instructor. He wasn't
+teaching that in Cornwall, of course. No, that would be the height of
+absurdity. He was teaching it in Devon.
+
+And was fired: A woman had slowed herself using the inside of her bottom
+lip as a brake; lawyers were mentioned; Doogie fled for the Tamar in his
+passion wagon, more of which later.
+
+These thoughts passed through my mind as I watched Doogie pierce some
+magazines with the forklift's prongs. By now, Madame had had enough of
+this jiggery and decided that pokery was required. She climbed down her
+chair ladder and secured Doogie's attention by throwing a roll of
+masking tape in his general direction, then drawing a finger across her
+throat. This was either a command to cut the forklift's engine or a
+demonstration of what she'd like to do to the driver. Either way, he
+stopped the forklift. Madame gripped the roll cage.
+
+`Can't you drive that thing?' she said.
+
+`To be sure I can, lass.'
+
+`Oh, please,' I said, glancing upwards.
+
+`Shut it, you,' he said.
+
+Doogie glared at me, and Madame caught the exchange. `Do 'ee know each
+other, then, or what?'
+
+`Or what,' I said.
+
+`What?'
+
+`We don't know each other,' I said.
+
+Doogie and I looked at one another. Over his shoulder, I could see that
+the women had downed tools. Faintly, below the ambient mechanical
+noises, the radio was playing Take That's \emph{Relight My Fire}.
+
+Madame wrinkled her nose like a POW guard sniffing for sign of disturbed
+earth. `You two look like you're up to something.'
+
+`It's nothing,' I said.
+
+`To be sure,' agreed Doogie. He forced a grin. `And aren't you a bonny
+wee lass?'
+
+`Shut your wap,' said Madame. Her eyes were stony. `Where did 'ee learn
+to drive like that?'
+
+`Ah, it's all the rage back in Oirland. Artistic flair, so it is.'
+
+`Let me see your ID.'
+
+Doogie passed her his stepfather's card. Madame squinted at it. `Wait a
+minute. It says 'ere you'm forty-four years old.'
+
+`To be---yes, I am. But I don't look a day over seventeen, do I so?'
+
+`No, you don't,' she said coldly.
+
+`'Tis me mother's complexion, so it is. Ah, and the spring waters of the
+Mullish Kintyre.'
+
+She tilted her head. `Don't 'ee mean the Mull of Kintyre? In Scotland?'
+
+I folded my arms, then put my hands over my face. Doogie cracked on. He
+was committed. `To be sure, there are many Mulls, and several Kintyres,
+but only one I call home.'
+
+`Which one?'
+
+He thought for a moment. `Home.'
+
+I peeked through my fingers at Madame. She was frowning at the ID badge
+but a fast look at the idle women suggested she wanted the situation to
+resolve itself one way or the other.
+
+`Alright,' she said, with a sigh. She tossed the ID back. `But I don't
+want to see any more artistic flair.' She rounded on me like the
+slightly-more-disturbed grandmother of Edward Scissorhands. `And that
+goes for you, too.'
+
+She tottered slowly back to her umpire's chair. When she had reached the
+top and settled in (click of seatbelt), I stage-whispered to Doogie,
+`What the hell are you playing at?'
+
+`I suppose,' he said, dropping the Irish lilt, `butter wouldn't melt in
+your mouth. To think, I'm in desperate need of a job and I find out you
+and Old Boy have filled the vacant positions.'
+
+`What? We told you last night we were coming here.'
+
+`You told me you were going for an interview. I never thought for one
+second they'd employ Old Boy. Besides, I didn't need a job then.'
+
+I put my head into the roll cage.
+
+`You were fired between ten o'clock last night and this morning?'
+
+Doogie looked indignant. `Someone told them I'd borrowed a parachute to
+go camping with Alice Walters, next week.'
+
+`A parachute?' I said. 'What's that got to do with camping?'
+
+`Do you know how much a tent costs?'
+
+`You eejit. What's your step-dad going to say when he finds out you've
+stolen his forklift certificate?'
+
+`He's never going to find out. He'll be happy enough when he gets his
+rent cheque.'
+
+`Which he'll then need to use for your bail, probably.'
+
+A box of Tic Tacs struck me behind the left ear.
+
+`Oi, you pair,' shouted Madame. `Get a shift on. I won't tell 'ee again.
+Wade, you get the pallet away before I come down there and box your ears
+for 'ee. Andy, you get sticking they magazines through. If we don't have
+this order out by five o'clock, there'll be heng to pay. Look at that
+bleddy backlog.' She blinked thoughtfully. `Gad, you'll need some help,
+I suppose. Someone with a bit of masculine grunt about them.' (At this,
+Old Boy closed his magazine triumphantly and began to walk towards me.)
+Madame continued, `But Sarah en't working today, so that bandy-ass mate
+of yours will have to do.' (Old Boy paused, then resumed his walk,
+shoulders hanging lower than before.)
+
+`Hello, Doogie,' Old Boy said, `what are you doing in a forklift?'
+
+`Oi'm Wade, you Sassonack. Speak to your wee friend if you don't believe
+me.'
+
+To emphasise his point, Doogie reversed away into a skid, then gunned
+the forklift towards us. I hustled Old Boy behind me just as the
+forklift braked and slid its two prongs into the base of the palette.
+
+`There,' said Doogie. He sounded surprised. `Easy.'
+
+When we were safely on the other side of the shrink wrap, Old Boy looked
+around.
+
+`What do we do, Andy?' he asked.
+
+`See those magazines?'
+
+`Yeah.'
+
+I mimicked Madame's Cornish accent: `Sling 'em on this 'ere conveyor.'
+
+`That doesn't sound too bad.'
+
+`My friend,' I said, `this is the shrink wrap. Be afraid. Be very
+afraid.'
+
+`I've got paper cuts on my paper cuts. And I was sexually harassed. I
+actually prefer it over here.'
+
+`Come on, then, muscles.' Cornish accent again: `Let's get a shift on.'
+
+I grabbed a bundle near Old Boy and threw it onto the shrink wrap. In an
+unexpected move, he dived after it and sprawled across the conveyor. He
+drifted away, looking at me as though I were insane.
+
+`Well,' I said, `how does that help?'
+
+With rapid, bird-like movements, he switched his attention from me to
+the magazines. He tugged at his trapped right hand. `Thumb's caught.'
+
+I tried not to look perplexed. `Your thumb's caught?'
+
+Old Boy flushed. `That was my bundle. I was preparing to ``sling'' it.'
+
+I flapped my arms against my thighs in exasperation.
+
+`You should have bagsy'd it. You know, got dibs on it.'
+
+Old Boy looked up the conveyor. He was still attached to the bundle.
+`I'm going to die horribly.'
+
+His nervous ear was twitching.
+
+\chapter{}
+
+\lettrine{T}{ he} shrink wrap worked by passing bundles of magazines between two rolls
+of transparent film. Once mummified, the material was cut by a
+guillotine to form a separate sack of film for each bundle. On the
+bundle would go, through the large, central chamber of the machine where
+a blast of heat would shrink the plastic.
+
+Old Boy was less than a metre away from the film rollers when he braced
+his feet against the metal arch that held them. The conveyor belt
+continued to move beneath him, tugging at his shirt.
+
+`Andy!' he screamed.
+
+Waist-high safety baffles stopped me from getting closer. If I were to
+help, I would need to climb onto the conveyor belt too. Meanwhile, Old
+Boy's cheap, gripless school shoes began to lose purchase against the
+metal frame. In front of him, downstream, the film guillotine shooshed
+up and down, leaving flat clear bags to shrivel in the heat of the
+machine.
+
+`What are 'ee bleddy doing?' screamed Madame. I turned to see her
+highchair rocking with panic. `Get your Cornish ass round that bleddy
+machine and turn it off 'fore I come down there'n sling you through it
+too.'
+
+I took what was, in retrospect, the scenic route: I leapt across a sack
+trolley, caught my toe in it, and bounced my head off the heating
+chamber. While I recovered my composure and studied the control panel, I
+heard Doogie's forklift skid to a stop behind me. I turned to see him
+leap off it with a swashbuckling, `Y'hah!'
+
+`What is Old Boy playing at?' he asked.
+
+I waved for silence and tried to focus on the control panel. `Cleaning
+the conveyor belt with his arse, what do you think he's doing? Go and
+pull him off while I figure this thing out.'
+
+`Leave him to me,' he said, leaping away. I wished he would stop keeping
+his head while I was losing mine. It was difficult to concentrate.
+
+Madame screamed again, `The red button, you daft dapeth!'
+
+`There are no red buttons.'
+
+`It's looking right at you.'
+
+`There's a blue one,' I said, frowning.
+
+`Push the red one, shit bag.'
+
+I whirled around and flapped my ridiculous mittens as though inviting an
+aeroplane to land. `There is no red button.'
+
+Madame's gorgon eyes blazed.
+
+`Alright,' I said. `I'll check again. Ah, now. There is a crimson one.
+Though ``carmine'' would be a better term.'
+
+`I'll frickin' swing for 'ee.'
+
+I slapped the crimson button, investing all the strength at my call. The
+button broke with a dull `boing' sound and fell onto my left shoe, where
+I stared at it.
+
+`He's broken the fail safe,' said Madame. Her voice had softened with
+disbelief. I could hear the murmurs of the women passing the news
+around. `He's broken the fail safe.'
+
+The conveyor belt made a sound like slipping gears. I turned to see that
+Doogie was on it now, adding his weight and resistance as he reached
+forward to grasp Old Boy. Doogie snagged his collar with his left
+hand---throttling him---and held on further back with his right. He
+looked like a man interrupted mid-buck on a bronco.
+
+`No,' croaked Old Boy, `air.'
+
+His quivering legs folded like windscreen wipers in a car crusher. He,
+and an off-balanced Doogie, collapsed. They were taken towards the film
+roller, where both were neatly swathed.
+
+\emph{So far so survivable,} I thought.
+
+Then they moved into the slamming jaw of the guillotine, which was
+striking the conveyor with regular, satisfying thumps. As it slid up for
+its next chop, Old Boy, foetal and gibbering, passed into its maw. His
+eyes widened with terror as it rose up---
+
+\emph{Shoosh.}
+
+---And down.
+
+\emph{Shoo-bft!}
+
+For a scrotum-tightening moment, I thought the blade had shortened my
+friend by a few inches, but as he passed on I could see that he was
+whole.
+
+Doogie, by contrast, was not going to be as lucky. The blade rose again.
+
+I flopped over the guard shield and crawled down the conveyor. With the
+guillotine a split-second from its cut, I took a handful of Doogie's
+hair---though, truth be told, his collar was equally convenient---and
+yanked him.
+
+`To me!' I shouted.
+
+\emph{Shoosh.}
+
+From my perspective looking down his body, the guillotine passed through
+his feet, but as the blade lifted up it was clear that Doogie had not
+been touched. He batted at my hand, but this only lengthened his body
+and put his head in danger of the next chop. I had no choice; I had to
+put my foot on his head and push. Well, in the technical sense, I did
+have a choice. I could have pushed him with my hand. But that's one for
+the lawyers.
+
+\emph{Shoo-bft!}
+
+The guillotine dropped once more and brushed the crown of Doogie's head.
+I let out my breath. I watched Doogie pass, after Old Boy, into the
+oven.
+
+I tried to look on the bright side. In one sense, my plan had been
+successful. In another sense---the sense associated with, say, a
+guillotine striking my foot in a sudden blaze of pain---
+
+\emph{Shoo-bft!}
+
+---the plan was suddenly, heart-stutteringly unsuccessful. I leaned back
+and howled at the asbestos ceiling tiles. The watching factory workers
+sang, `Oooooh,' as though I were a tennis player sliding into the
+splits. The pain was like a loud noise, even deafening, but I had enough
+awareness to curl up and put my fists against my head. The blade came
+down again and missed me.
+
+Through my frosted plastic shroud, I saw people running towards the
+shrink wrap. The throb washed up my leg as though I had collapsed at the
+very shore of oblivion. I struggled to keep my thoughts on positive
+lines as the conveyor belt bore me solemnly onwards into the oven that
+would blast me with hot air before spitting me into the bin of magazines
+and two familiar, flambéed companions.
+
+I heard the roaring of fans. The light of the world went out. I dared
+not breathe. Back to me flew all the memories of the ghost trains I had
+ridden as a child: here a skeleton painted with uneven fluorescent
+paint, grinning and waving pip-pip to the tune of a tired motor; there a
+bat bouncing on elastic. I recalled dirty vampires flashing and the hiss
+of dry-ice.
+
+Then daylight. I felt cold rollers beneath my back. My mouth had been
+sealed with hot film. It clung to my whole body like an immobilizing
+skin. I was trapped in my sideways crouch and could do nothing as I slid
+down the slipway and bounced into another body. The pain in my foot
+restarted.
+
+A nail slipped across my face once, twice, snicker-snack. As it passed
+my mouth, I gasped and took swallows of air. Everything sounded hollow.
+The plastic had sealed my ears. I turned to see Doogie was next me. A
+strip of film had stuck to his beard, shutting his mouth. Old Boy, also
+alive, fingered the film over his closed eyes with a free hand.
+
+Though the world was muffled, I could hear an alarm. A red light was
+pulsing too. It reflected in the greasy foreheads of the factory ladies,
+who had formed a crowd around the shrink wrap. I felt like an astronaut
+at a press conference. I managed to tear the film around my right hand
+and, this done, I popped a hole in the plastic over my ear.
+
+Madame had the exhausted, numb look of a person who had risen to anger
+so quickly she had smashed through the glass ceiling of fury and been
+knocked senseless in the process.
+
+`Never,' she gasped, `never in my born days.'
+
+`We're alive!' I said. `Knew we'd be OK. The thermal properties of
+polyolefin mean it doesn't need that much heat, interestingly.'
+
+`Mmmm,' said Doogie.
+
+`Hello?' asked Old Boy.
+
+`All that palaver, eh?' I said. `We must have given you quite a stir.
+Anyway, back to work we go.'
+
+`You hold on there, my lover. You've got some explaining to do. Mr
+Smart?'
+
+Abruptly---because I hadn't heard his running footsteps---Mr Smart
+appeared. He was out of breath and his damp shirt was stuck to an
+unnaturally chiselled physique.
+
+`Someone tell me why I've been interrupted from Harry Secombe's final
+album \emph{I Did It: Highway}.'
+
+`Look at 'em,' said Madame, pushing her chest out. For a moment, I
+thought she would cite her breasts as the cause of the emergency, but
+then she gestured towards us like a weather forecaster directing the
+viewers' fancy to a storm front.
+
+`Dear God, have you been through the shrink wrap?'
+
+\emph{Count to five,} thought my brain. \emph{Do not ask him what
+brought him to that conclusion.}
+
+Slowly, I said, `We have quite literally been through the shrink wrap.'
+
+Mr Smart looked from me to Madame and back again. My ankle throbbed. She
+shrugged. I tried to shrug too, but the wrapping was too tight.
+
+`They en't got an ounce of common sense between 'em.'
+
+`Well,' I said, `you didn't show me how to use the machine properly.'
+
+If a movie were ever made of my life, I looked forward to consulting
+with Jim Henson's Creature Shop on capturing the arachnid movements of
+Madame.
+
+`You liar,' she said, turning to Mr Smart. `I did tell him.'
+
+`When I asked her for health and safety advice,' said Old Boy, `she told
+me to stay safe and healthy.'
+
+`Is this true, Yvonne?' asked Mr Smart.
+
+`Liar,' she said. She poked my chest once. `He climbed on the bleddy
+machine. Didn't he, girls?'
+
+There was a grumble of agreement.
+
+`Oh yeah, he did.'
+
+`I seen 'im.'
+
+`Up on the machine, straight up. I never seen nothing like it. Have you,
+Polly?'
+
+`I like that little tacker. The one who went through first.`
+
+Old Boy's hands scrambled around him as though feeling for an ejector
+seat release.
+
+I struggled again at the film, but I could not rescue myself from
+confinement any more than I could shake the impression that I was a
+raving loony in a straitjacket protesting his sanity to a kindly
+psychiatrist who would be only too happy to relieve me of my prefrontal
+cortex if I didn't stop gibbering.
+
+`Look,' I said, `what happened was this. I tried to turn the machine off
+when I saw Old Boy was on the conveyor belt---'
+
+`Hang about,' said Mr Smart. `Why was your friend on the conveyor belt?'
+
+`Um,' said Old Boy.
+
+`Well,' I said. `That's because I---'
+
+`I tripped! My fault!'
+
+`You tripped over the guard shields?' asked Mr Smart. His forehead was
+unhealthily corrugated. I could tell we were not winning him over.
+
+`Right!' said Old Boy.
+
+`You're fired,' said Mr Smart.
+
+`Right!'
+
+`Now you,' he said to me. `Why didn't you stop the machine?'
+
+`There was a problem with the knob.'
+
+`Are you trying to be funny?'
+
+`Actually, I was too busy directing aircraft with these gloves.'
+
+We looked at one another for a considerable time. `Now I'm trying to be
+funny,' I said weakly.
+
+`Try this: you're fired.'
+
+`Ah.'
+
+`And you,' he said, taking a firm grip of the film gag across Doogie's
+mouth. `What have you got to say for yourself?' He swept the gag from
+Doogie's face.
+
+`Jaysus!'
+
+The film carried a Turin Shroud of Doogie's adolescent beard. Mr Smart
+tapped the ID on my friend's lapel. `Wade---You're the same Wade who put
+the prongs of his forklift through the fence this morning.'
+
+`Conditions were\ldots{}were\ldots{}' Doogie looked at me desperately.
+
+I panicked. I said, `Icy.'
+
+Doogie looked like a deep-sea submersible pilot whose companion has just
+confessed to an explosive gastric ailment.
+
+`Yeah,' he said, more to me than Mr Smart. `It's been a particularly icy
+summer.'
+
+I looked at my shoe. The heel had been split in two by the guillotine.
+
+`I sent you up here to stay out of harm's way,' continued Mr Smart. `Not
+one of my better decisions.' He squinted at the ID. `Are you really
+forty-four years old?'
+
+`If I look younger, it's because I've kissed the Blarney Stone, so I
+have.'
+
+`Well, you're fired, whoever you are, and be grateful I don't take legal
+action,' said Mr Smart. `Once you've been cut free, get your stuff and
+get out. Andy, I'm particularly disappointed in you. As for this one, I
+remain unsurprised.'
+
+`But,' said Old Boy.
+
+Mr Smart stepped back and nodded to Madame. She sneered as she
+approached, her nails clicking like black mandibles.
+
+\section*{}
+
+We were without a car between us, so we walked up the hill from the
+industrial estate to the town centre. It passed noon. The air wobbled
+with heat and the traffic on the road to Par was slow and heavy. The
+flowers of the Penrice roundabout had been arranged in beds by colour
+and they blazed red, yellow, and blue. An ambulance overtook a lorry. It
+brushed against the curb and sent up a bank of dust, which we trudged
+through.
+
+`If your thumb was caught,' Doogie said for the twentieth time, `why did
+you have to jump after it? Why not just stand where you were and move
+your arm?'
+
+Old Boy just kept walking.
+
+`Doogie,' I said, `these points would be more devastating if you had a
+complete beard.'
+
+`I know that.'
+
+When we reached the high street, I drew out some cash using my credit
+card and treated everyone to pasties. We ate them leaning against the
+guardrail on the top level of the multi-storey car park.
+
+Doogie sighed. `Sorry, mate.'
+
+`That's OK,' Old Boy said.
+
+They clinked their bottles of Panda Coke. Afterwards, we balled up the
+greasy wrappings and played football until Old Boy twisted his ankle on
+a lolly stick. We had enough change to play pool in an arcade near the
+Priory Car Park, so we did that. The crowd was a mixture of college
+friends and mates from school who, in the interval since I last saw
+them, now looked alarmingly grown-up; the old friendships and rivalries
+were crumbling away as we left childhood behind. Things that had seemed
+so important at school---where you sat, who you talked to, what you wore
+on non-uniform days---now seemed trivial. While chalking my cue, I spoke
+to Del Cundy for the first time since he'd ripped open my armbands with
+his teeth during a swimming lesson in the first year at St Mewan. He had
+mellowed.
+
+Around teatime, Old Boy told us he had to go home. He had a curfew
+because his parents went to bed early. Doogie and I finished our game,
+scooped the remainder of our twenty pence pieces from the side of the
+table and nodded our good-byes to the crowd. The clientele was changing
+into a different sort altogether, anyway. These older, more leathery
+types were in the foothills of a night on the razz.
+
+Outside, it was still hot.
+
+On a typical evening, Doogie would have driven us home in his Ford
+Escort, The Chariot of Phwoar. But its battery had been dead for a
+fortnight, so I sat with Doogie in the Trinity Street bus shelter as we
+waited for the 522. We spoke about our plan to teach English in Japan
+and learn karate from the supernaturally gifted masters there. The
+conversation was a stale one. We both knew it wasn't going to happen.
+When we were fourteen, our dream had been a computer shop. When we were
+ten, it had been jobs at the North Pole as elves.
+
+`Andy,' Doogie said, in a tone that suggested he wanted to close the
+book forever on Japan, `Wade wants to kick me out.'
+
+A couple of years back, Doogie's life had worsened with the arrival of a
+lodger called Wade, who had a penchant for convoluted Jethro jokes and,
+it turned out, Doogie's mother. Doogie now had a young half-sister by
+Wade and found himself being eyed up during teatime discussions about
+the weight of the family airship, so to speak. Wade had increased
+Doogie's rent in line with inflation. In Argentina.
+
+A half-size bus rounded the corner. Its destination read, `St Dennis'.
+
+`That's me,' said Doogie. `See you tomorrow.'
+
+`Wait, what's tomorrow? Sunday? Is it that thing?'
+
+`Yes, it's that thing,' he said, speaking clearly as though to an
+elderly relative. `Don't forget your contact lenses, or you'll be no
+good to anyone.'
+
+There was an old lady getting off the bus. Doogie took her wheelie
+trolley and placed it on the pavement. Then he flashed his pass at the
+driver.
+
+I looked at my watch. There was a programme on Radio Four about dark
+matter and I was probably going to make it.
+
+`And wear a thick jumper,' said Doogie, his mouth at an open window,
+`even if it's hot. You won't bruise as much.'
+
+`We're bringing Old Boy, right?'
+
+Doogie gave me a crooked smile.
+
+\chapter{}
+
+\lettrine{T}{ here} are parts of St Austell, mainly to the north, that look like the
+moon. Centuries ago, someone dug up kaolin---china clay---and, knowing
+it would make paper shiny and pills easier to swallow, dug up some more
+and kept on digging, covering the countryside in white craters. In the
+late eighties, my father had apprenticed for the company that mined the
+clay. He used to come home with white dust covering his metal-capped
+boots.
+
+Thirty thousand people lived in St Austell in 1999, the brink of the
+twenty-first century. Our town is to Cornwall as Birmingham is to
+England. Winters are damp. It never snows, no matter how hard you
+concentrate. You can run through the ruined landscape of clay tips and
+throw clay balls if you want---but you won't. In summer, when the air
+wobbles with heat and the roundabouts fill with flowers, the whole world
+comes to Cornwall.
+
+Here is a new Mercedes with a Bailey caravan, top of the range. Here are
+children called Chloë and Simon. Chloë has a net for the rock pools.
+Simon has plastic dinosaurs to guard his sand castles. Here are BT
+operators on a hen weekend. Doctor Thompson, retired, on his Harley
+Davison. The Makepeace family are driving to their second home in
+Padstow.
+
+These tourists move like a wave of buffalo. The natives waylay them with
+trinkets, housing, scenery, best bitters and occasionally give them
+directions that lead them off cliffs. Relatively few tourists stop in St
+Austell, where granite has rotted to form china clay, and fathers stamp
+the white dust off their boots before coming into the house at tea time.
+
+There is a woodland near my house---I can see it from my bedroom
+window---where no tourists go. It is Luxulyan Valley. Doogie, Old Boy
+and I are driving there now in the resurrected Chariot of Phwoar.
+
+\section*{}
+
+It was our Arts and Crafts teacher, Mr Jones, who pronounced the
+`Poverty in Cornwall' painting created by Doogie and me `pretty
+contemptible' because some of the homeless looked like our classmates.
+Henceforth, the pair of us, and whoever else we deemed worthy of
+inclusion, were known as the Young Contemptibles. We had kept the
+nickname throughout our school life, and it was this group identifier
+that Doogie had provided on the insurance forms for the paintball
+company, Stingers.
+
+Old Boy, a late addition, had never been a Young Contemptible. I gave
+him the accolade as we were wheel-spinning away from his parents'
+bakery, partly in recompense for our sudden appearance in his life that
+morning.
+
+`Think of this less as a kidnapping and more as a field promotion,' I
+said. `Welcome to the club.'
+
+Old Boy probably thanked me at this point. It was difficult to hear him
+over the theme from the film \emph{Bullitt}, which Doogie played, at
+some volume, when he needed to drive fast. Plus I was holding Old Boy in
+a companionable headlock.
+
+As we dropped down into Luxulyan Woods, the sunlight faltered before
+failing entirely at the pit of the valley. Branches were low enough to
+brush the car. The road surface changed from cracked tarmac to pot-holed
+tarmac, to no tarmac at all. We splashed through a high ford, and when
+Doogie wiped away the muck from the windscreen, we saw the sign for
+Stingers.
+
+`What's that, mate?' I said to Old Boy. I could feel his jaw moving
+through my arm.
+
+`I said, ``Why do you need me?''\,'
+
+`It's the latest stage in my programme to get you out of the house
+more.'
+
+`Plus,' called Doogie, swinging The Chariot of Phwoar through the gate,
+`the Trethewey brothers got the shits.'
+
+\section*{}
+
+Thing was, Doogie and I liked to drink at the White Gold---the Goldie,
+to its friends---over near the Mevagissey Roundabout. The pub used to be
+a mill on the White River and there is still part of the huge wheel axle
+in the games room. It's not too popular with students because of its
+reputation for violence. This reputation is, of course, somewhat
+exaggerated for effect, though I have heard of a local biker gang
+setting about the St Austell College bridge club with Super Soakers one
+summer afternoon. This reputation meant that you could actually get a
+seat in the evening, which marked it out as an oasis in the desert of
+rammed pubs around the area.
+
+One of the regulars was a tall, broad-in-the-beam character called Big
+Jeff---though not to his face. He wore leather boots with hobnails, a
+belt like a weightlifter's, and a Russian army coat. He was reliably
+grumpy unless he was making fun of one of the uneasy, deferential crowd
+who hung around him at the bar. Big Jeff was the owner of Brown's
+Ice-Cream. You've probably heard of it. If you've been to Cornwall and
+ordered a frozen treat from a van on a beach, the chances are that
+Brown's Ice-Cream made that whippy, choc-ice or lolly. Nobody used the
+word `mafia', but it was obvious that Big Jeff had connections of the
+'bada-bing, bada-boom' variety.
+
+Doogie tended to order drinks because he had a Cornish accent, or enough
+of one to escape notice. I, on the other hand, sounded like a Radio Four
+continuity announcer in tight trousers. Unspeakably non-local, and
+asking for a slap. Doogie and I would tiptoe past Big Jeff on the way to
+the rickety conservatory that appended the games room. Once there, we
+would drink in splendid isolation. At least, that was the usual routine.
+
+On this evening---it was the Wednesday prior to the paintball---we never
+made it to the games room.
+
+First, I noticed a woman in the group around Big Jeff, listening to one
+of his stories. There was nothing flashy about her clothes. She wore a
+checked blouse, jeans and white trainers. These clothes---peripheral
+irrelevancies---were enough to make the edge of my vision crinkle with
+starlight before I even considered the body underneath. In fact, the
+non-flashiness only underscored the effect of her eyes. They were
+moonlit. Perfect. She was looking across the room as Doogie and I
+entered. Her bored glance crossed me, hesitated, and came back.
+
+She smiled.
+
+At me.
+
+`I'll get them in,' said Doogie. `The usual?'
+
+The majority of my brain was occupied in figuring out whether this
+beautiful girl was truly looking at me or, more feasibly, the slightly
+better looking Doogie. I was working in Shoe World at the time, and the
+first rule of shoe retail came back to me: don't expect an old boot to
+sell if you display it next to a snazzy trainer with those little
+air-pump thingies.
+
+Doogie took a position at the bar next to Big Jeff. The girl's moonlit
+eyes had not followed him. She was still smiling at me. Encouraged and
+baffled, I moved towards her through the regulars. There was a piece of
+mill machinery above the bar---something like a plough---and its end
+pointed down at her. Big Jeff had his back to us. He was laughing. It
+sounded like a man banging to be let out of a wardrobe.
+
+She had scarlet stripes in her brown hair. Her eyes were steady and
+confident. As I stopped, a little too far away to be normal---a great
+start---she rolled her eyes in mock boredom and tipped her head at Big
+Jeff. Being a male of the species, I began the usual business of
+collecting and sifting every element of her smile for the gold of
+genuine attraction and the possibility that she might, one day, given
+the right circumstances---and, if necessary, alcoholic beverages---agree
+to have proper sex with me.
+
+Proper sex, mind. With the lights on.
+
+Ironic, then, that I chose to destroy the possibility of such a scenario
+by holding out my hand and saying, `H'mah!' which isn't even a word.
+
+`Andy,' she said. `Hello.'
+
+\emph{She knows my name,} I thought.
+
+Panic.
+
+Had she been in the year below mine at school? Had she borne witness to
+the horror of my reading of the Twenty-Third Psalm when, before a packed
+assembly hall, I had actually vomited with nerves into The Good Book,
+closed it, and passed it to the horrified Mr Goudge standing behind me?
+
+I decided to shake her hand.
+
+`Hello.'
+
+`Not many people our age do this,' she said. `Shaking hands, that is.'
+
+\emph{Andy, this is your brain speaking. You've been shaking her hand
+for some time. Best to stop. Otherwise she'll think you can't even
+handle the most basic of social situations.}
+
+I swallowed dryly.
+
+\emph{But it would be awful, wouldn't it?} continued my brain. \emph{If
+you could think of nothing to say.}
+
+\emph{You know: Nothing.}
+
+\emph{At.}
+
+\emph{All.}
+
+My belly swirled with acid and bile. Adrenaline washed through my limbs
+and lit fireworks in the middle of my---already tired and
+emotional---brain.
+
+`Um,' I said.
+
+Her smile froze and I could feel her prepare for the conversational mode
+that permits a person to interact with a two-year-old who keeps handing
+you teaspoons and singing a nursery rhyme in response to questions about
+his snappy new jumpsuit.
+
+`Well,' she said, `of course, it's nice to meet you again.' She reached
+across with her left hand and rescued her right from my sweaty mitt. She
+pursed her lips and nodded.
+
+\emph{She knows me. How?}
+
+I raised my eyebrow and circled my head in a manner designed to both
+acknowledge that I recognised her and to suggest that she give me more
+details.
+
+\emph{Oh, look, Andy. Another period of silence is starting.}
+
+`So,' she said, `how have you been?'
+
+\emph{Deep breaths. Articulate yourself.}
+
+`Fine,' I said, `I've been fine. You look nice---today.'
+
+\emph{A masterstroke. Now ask her if she'd like to see some puppies.}
+
+`Thanks,' she said. She lifted a spirit glass to her lips and took a
+sip. She was on the brink of another smile.
+
+\emph{Right, forget the puppies. She thinks you're being ironic. She is
+impressed by your post-modern approach to conversation.}
+
+`I---I---'
+
+\emph{Oh, for the love of, and so on.}
+
+`Yes?' she asked.
+
+`You look nice today.'
+
+\emph{Andy, remember this moment for every day that remains of your
+sexless life.}
+
+In the midst of this little death---as sweat ran down my forehead,
+collected on my eyebrows, surged from my armpits and babbled down my
+back---I whispered, `Try to stay calm, idiot.'
+
+`I'm sorry?'
+
+\emph{In another brilliant move,} thought my brain, \emph{you've managed
+to say that out loud. If it's alright with you, I'd like to transfer to
+another body. I don't like the mouth on this one.}
+
+I'd solved time dilation equations with less effort than it took to
+compute this conversation. I should note that, as a card-carrying
+physics geek, stereotypes dictate that I should be unable to start a
+conversation with a woman unless our hands touch by accident in the
+salted snack bowl during Spock's death scene at the end of \emph{Star
+Trek II: The Wrath of Khan}. But I can hold my own, even against the
+sporty Doogie, provided we're at a nightclub and I remove my glasses.
+Deafened, partially blind in a darkened environment, and quite drunk,
+things often proceed swimmingly.
+
+Sober, however, sweat equals mass multiplied by the square of panic.
+
+`I'm starting to think you don't remember me,' she said.
+
+I had never spent so much time looking at a pretty, amused face. A tear
+of sweat broke from the cover of my hairline. I began to think about
+wiping it away, then began to think about thinking about wiping it away,
+then I stopped thinking.
+
+She laughed. Her eyes---which, unlike mine, she was fully in control
+of---crinkled wonderfully.
+
+`I'll give you a clue: electricity.'
+
+`You don't work in Curry's, do you?'
+
+I allowed myself a closer look at her face. She lost a fraction of her
+composure under my stare, but not the slightest recall stirred in my
+memory.
+
+Meanwhile, she was looking at me as though I were insane.
+
+`Here,' said Doogie, passing me a pint, which slipped through my
+fingers, struck my foot, and sloshed to an unfeasible height up Big
+Jeff's back.
+
+I stood there for a long time. My hand remained in a pincer-like
+configuration. We all stared at that hand. Doogie stared at it; the
+unknown woman stared at it; and Big Jeff, revolving slowly like Bully's
+Special Prize Board, stared at it. Soon everyone in the pub was staring.
+Conversation dwindled. For the first time, I could hear the juke box. It
+was playing `Rabbit' by Chas and Dave.
+
+The beer had splashed right up to an epaulette on Big Jeff's coat. He
+swayed like a bear shot by an insufficiently powerful tranquilliser
+dart. His face went through a series of expressions: from surprise, to
+intrigue, to anger.
+
+\emph{`--Rabbit-rabbit-rabbit-rabbit--'}
+
+`What the bleddy hell do you think you're playing at?'
+
+Beer dripped.
+
+I looked at my hand. I had no idea how to explain that I had
+accidentally dropped my pint.
+
+`I dropped it,' I said.
+
+Big Jeff gurned.
+
+`I can see that, shit-for-brains.'
+
+`Accidentally,' I added.
+
+My hand was still in the pincer position.
+
+Big Jeff gathered the fabric of my shirt in one, large paw. I felt a
+button pop.
+
+After that, all the stopped up energy in the pub seemed to release.
+Everyone came to life. I remember the woman holding on to Big Jeff's arm
+and telling me it would be better if I left. At the same time, Doogie
+laughed politely, unhooked Jeff's hand, and led me through the surly
+onlookers to the door of the pub.
+
+\emph{`Rabbit-rabbit-yap-yap.'}
+
+We took a shortcut home through some gardens. I kept telling Doogie
+about the woman and he kept telling me to shut up.
+
+\section*{}
+
+Above Luxulyan woods, clouds had gathered. The paintball marshal left us
+with a laminated set of instructions for the forthcoming battle. The
+rules, I explained to Old Boy as he looked at his equipment with growing
+incomprehension, could be summarised as: shoot the other guys as much as
+possible and your own team not so much.
+
+We sat on the bank of a stream. I had laid out my weapons: a paintball
+gun, hopper empty; waterproof trousers and coat, green; Hannibal Lecter
+mask, visor attached. Old Boy had done the same. But our piles amounted
+to less than half Doogie's paraphernalia. He had a bandolier, spare
+hoppers, kevlar gloves, some kind of stock extension, and grenades. The
+grenades, he claimed, were perfectly safe---not much more powerful than
+a shaken fizzy drink bottle.
+
+Doogie spread an icing of mud across his forehead, cheeks, and what was
+left of his goatee.
+
+Old Boy turned to me. `Do we have to do that?'
+
+`Mate, nobody has to do that.'
+
+Doogie's hair was covered by the hood of his waterproof coat and his
+eyes were protected by a visor so thick it would be perfectly safe,
+medically speaking, for him to do some spot welding as we waited for the
+game to begin. He had scrawled `Born To Kill' across the top in white
+correcting fluid. On my own visor, at Doogie's urging, I had written
+`Animal Mother', but my writing was so neat that the effect was ruined.
+
+Doogie hefted his gun. He rested the barrel in the notch of his elbow
+and practised shooting at the trees, which he had labelled, with no
+detectable irony, `native insurgents'. Next, satisfied that he had
+taught some foliage a lesson it would not soon forget, he tested the
+tightness of his outfit with a slow dance that looked like a dizzy T'ai
+Chi master feeling for a light cord in a darkened bathroom.
+
+Old Boy still wore his white overalls. There were traces of chocolate
+milkshake either side of his mouth. He gave his hopper a tentative
+squeeze. He looked like a kidnapped surgeon poised to operate on a
+dictator.
+
+`Mate,' I said, `have you ever played paintball?'
+
+`No. But I did see \emph{Apocalypse Now} the other night.'
+
+`All you have to remember are two things. If you see someone wearing a
+yellow armband, shoot. If they're wearing a blue armband, hold your
+fire.'
+
+Old Boy raised his eyebrows. Which is to say, he moved his brow ridges.
+His eyebrows remained motionless on some shrink film a few miles away.
+
+`Is it that simple?'
+
+`Absolutely.'
+
+I unfastened the hopper on my gun and dribbled some blue paint balls
+inside. The visor looked a little too small to accommodate my glasses. I
+took them off and put them in the map pocket of my trousers.
+
+`Hey, Andy.' Doogie offered me a tube of something. His expression was
+that of a person about to magnanimously turn down heartfelt thanks.
+`Mozzie rep?'
+
+`Mosquitoes? In Cornwall? Good thinking, private.' I threw the mozzie
+rep into the bushes and said to Old Boy, `Doogie has left the building.'
+
+Old Boy sniggered, which sounded like someone stifling a number of
+sneezes: `\emph{Gh'k. Gh'k. Gh'k.}'
+
+`Nice,' said Doogie, aiming for the tone of a person who could produce a
+withering reply if necessary but would not, on this occasion, bother.
+Just then, there was a burst of static from his walkie-talkie. He
+plucked it from his lapel and treated the Luxulyan woods to a
+thousand-yard stare. `Broadsword, this is Danny Boy.' Unintelligible
+crackle from the radio. `Roger, we are ready, over.'
+
+Doogie presented me with a closed fist, which he then opened.
+
+I sighed. This was one of the commando signals he had asked me to
+memorize on the way over. Rather than risk the intricacies of another
+lesson, I did the same gesture back.
+
+Doogie looked at me as though I were a fool.
+
+`Synchronise watches, gentlemen,' he growled. `It is 0930---now.' He
+shut the flip lid on his wristwatch and began tightening various Velcro
+strips about his person. When he noticed Old Boy and I had not moved, he
+said, `Why aren't you synchronising?'
+
+`I don't have a watch,' I said.
+
+`Mine thinks I live in Venezuela,' said Old Boy.
+
+Doogie sighed. `Just lock and load, people. Check your weapons and your
+webbing. The Young Contemptibles are moving on up.'
+
+`Out,' I corrected.
+
+`Out. Up. I ought to have you court-martialled.'
+
+`Remember,' I said to Old Boy, `don't act the hero. \emph{Be} the hero.'
+
+Old Boy concentrated.
+
+Rain fell at the double and, taking this as a sign, Doogie nodded. We
+left the stream and headed up the hill. In places, the ground was uneven
+mulch. It blistered and sucked as we crept. My visibility extended less
+than five metres. Beyond that, the world was impressionistic. We
+progressed in a chimp-like swagger that pickled our legs with lactic
+acid.
+
+`We could do with some Agent Orange,' murmured Doogie. `You know, an
+exfoliant.'
+
+`You could do with a lobotomy. The word is defoliant. Don't you ever
+listen to the science bit?'
+
+`Oh, you're such a---'
+
+`Pacifist?' I offered.
+
+`Pacifists don't recommend lobotomies.'
+
+`Listen you, I've had to take my glasses off because they don't fit
+under my visor. That means I can't see diddly.'
+
+`Hmm,' he muttered, sniffing the air.
+
+`When you see somebody, you have to point them out and let me aim along
+your arm. It will just be one big blur otherwise. Is that OK?'
+
+`OK,' he replied, sounding distracted. He removed the paintball hopper
+and tapped it once against his head. This done, he slammed it back into
+the gun. `Now, if we get separated, the watchword is ``pixie''. Repeat,
+``pixie''.'
+
+`You're ``irritating'',' I said. `Repeat, ``irritating''.'
+
+Up ahead, where the shrubbery was a battlement of green, we heard two
+sounds. The first was someone clearing his throat. The second was
+someone being slapped upside the goggles for clearing his throat.
+
+Doogie stopped. I almost walked over him. Old Boy bumped into the back
+of me.
+
+The clearing became silent but for the sound of rain.
+
+Doogie crouched and patted the ground. Pinched some moss. Observed its
+fall. Sniffed the rainy gusts. Then he looked back at me and held up one
+finger, two fingers, and clapped silently. He nodded.
+
+I turned to Old Boy and nodded too.
+
+`Of course,' I whispered, `I have little notion of what that means.'
+
+Before Old Boy could whisper back, a black, fist-sized ball plopped onto
+the woodland floor and rolled towards him. As Old Boy took the grenade
+and called, `You dropped something,' there was only time for Doogie and
+me to dive away.
+
+\emph{Splang!}
+
+This grenade was more explosive than a shaken bottle of Coke. It
+detonated with a percussive slap that knocked Old Boy onto his arse. His
+chest and legs were yellowed. He rolled downhill and gathered leaves on
+his face and chest, glued by the sticky paint. I ran over and pulled him
+into the foliage at the edge of the clearing. From this cover, the three
+of us had a moment to consider our options. We didn't need long; there
+weren't that many options.
+
+Blurred shapes hurried into the clearing and, with chilling calm,
+saturated our position with high-velocity plastic. I had no idea what
+was camouflage and what was bush. The rounds left their guns with little
+fart noises. One hit the exposed flesh of my neck. It hurt. I had to
+stop myself walking to the enemy with my hands on my hips, saying, `I'm
+sorry, chaps, but that one is going to \emph{bruise}.'
+
+I commando-squirmed towards Doogie.
+
+`They've got more powerful guns than us,' I hissed.
+
+He agreed.
+
+`There are more of them,' I said.
+
+He agreed again.
+
+`Doogie, under the circumstances I would very much prefer not being as
+blind as a bat.'
+
+`Roger that,' he said. He vaulted across me, crouched, loosed two
+rounds, and fired another volley. Then he dropped onto his back and shot
+twice into the sky. He seemed to pause in case a body fell from high
+concealment.
+
+`Douglas,' I said, `it would be ideal, really tip-top, if you could
+point out those buggers.'
+
+From his supine position, Doogie braced his hands against the ground
+either side of his head, put his knees on his chest, and flipped into a
+crouch. Fire-fire. Pause. Fire-fire.
+
+`There, there and there.'
+
+Multiple pointing. Brilliant.
+
+For want of something to do, I shouted, `Have it!' and shot Doogie in
+the back a couple of times. As he turned, grimacing with pain, I shouted
+in his ear, `I think they're flanking us.'
+
+The first casualty of war is innocence.
+
+Poetic justice arrived in pellet form and struck my forehead. It felt
+like a door had been closed on my face. I sagged, stunned, to the
+ground, and remembered Old Boy, who had already got a grenade in the
+chops. I half-focused on his figure. He sat against a nearby tree,
+cradling his gun. He had been tarred with paint and feathered with
+leaves. `The horror,' he was saying. He caught my eye. `The horror.'
+
+More blurry, camouflaged figures joined the battle. They switched in my
+perception from bush to human and back again. The only people I could
+identify were the yellow-jacketed marshals on the periphery of the
+engagement. I gave one some friendly fire.
+
+`Don't shoot at the marshals!' someone shouted.
+
+Doogie cuffed me on the shoulder.
+
+`There's one.'
+
+He pointed ahead. Much as I appreciated this scrap from Doogie's high
+table, there was little to see but greenery. I screamed, `Get
+some!'---it seemed apposite---and released several rounds before I
+noticed I was shooting a marshal again.
+
+`Don't shoot at the bloody marshals!'
+
+I nodded vigorously, pointed at Doogie, and shrugged.
+
+War is hell.
+
+So we were trapped in a swirling vortex of paint and pain. Our objective
+had been to visit all-out war. Have at them; thrash them; rout them. In
+short, confirm that they did not, indeed, like it up 'em. This was not
+going to happen.
+
+Doogie waved at me.
+
+In reply, I made a shadow-bunny with my left hand.
+
+`That means, ``Get over here'',' he hissed.
+
+I scuttled across to him and crouched at his shoulder.
+
+He fired three blind rounds. `This is just foolery. We're being attacked
+from the rear and there's nothing we can do about it.'
+
+`It could be argued that we've passed the foolery stage, Doogie, into
+tomfoolery. It's a whole new---'
+
+`If you say ``paintball game'', I'm going to put one of these grenades
+down your pants and pull the pin.'
+
+`Point taken.'
+
+`You and Old Boy need to defend the rear. Understood?'
+
+Just then, a barrage of paintballs struck me about the face and groin. I
+pitched backwards, dizzy with pain, and collapsed near the tree where
+Old Boy was digging into the bedrock of his personality. He grabbed my
+collar. `I can hear the gooks talking about us, Andy. They're planning
+something.'
+
+`Trust me, you'll be having fun in a minute.'
+
+I was using the term `minute' in same sense as my Dad once used it,
+when, looking at the demolished rear wall of our house, said, `In a
+minute, when the new extension goes up, you won't recognise the place.'
+
+`Having fun? I'll be---'
+
+Old Boy's reply was lost in a spell of deafness as shots raked my ear. A
+second volley tore through the vegetation to either side of us. Old Boy
+accepted the pain with dignity at first, but then the final gossamer of
+his self-control twanged apart. He screamed, `Medivac!' and threw down
+his gun. I watched him disappear into the bushes.
+
+I was beginning to think that drafting him in from the bakery this
+morning had not been such a good idea.
+
+I followed him into the undergrowth and became disoriented immediately.
+I wanted to head downhill but the ground was uneven and my feet kept
+sliding into pools of mud. After more than a minute, I emerged at a
+clearing near the stream.
+
+Old Boy stood on the opposite bank. That was good. On my side of the
+water was a blurred silhouette that could only belong to Big Jeff. Not
+so good.
+
+I moved behind a rotting log and squinted at Big Jeff's gun. It was
+unusually large and was pointing at Old Boy's feet.
+
+`Like me gun, dooey? Cussom med. Some pressure on 'un.'
+
+Old Boy, who was born in Nottingham, looked at him blankly. I could
+almost hear the machinery inside his head translate and digest the
+words.
+
+\emph{`Do you like my gun? It is home made. The pellets can be expelled
+with considerable pressure.'}
+
+Jeff fired. The ball left his gun at twice the usual speed and struck
+the ground in front of Old Boy, where it threw up soil, leaves and a
+mist of yellow. Old Boy stumbled back and almost fell.
+
+I thought, \emph{What would Doogie do?}
+
+`You'm a prisoner of war now, my handsome,' he said to Old Boy. `That
+gets us a gurt dollop of points.'
+
+`Um,' said Old Boy. He had seen me and my frantic `keep him talking'
+gesture. `Perhaps we should be clear on the relevant points of the
+Geneva convention.'
+
+I moved towards Big Jeff until I was close enough to make out two
+paintball grenades clipped to his belt. They looked to be a larger type
+than the one that had exploded in front of Old Boy. I unhooked
+one---gently doing it---but the man stepped backwards, presumably
+intending to lead Old Boy away.
+
+`Eh?' he said.
+
+As Jeff turned, I dashed around him and made for Old Boy. Jeff had time
+to shoot me in the back twice before I shouted, `Incoming!' and hooked
+arms with Old Boy. I kicked up shoulder-high arcs of water as I slewed
+through the stream. On the opposite bank, just before we reached the
+cover of an old wheelbarrow, I propelled Old Boy over it and made ready
+to throw the grenade at Jeff. With luck, it would get us `a gurt dollop
+of points'.
+
+As the explosive bag of paint left my fingers, I shrieked a fierce
+\emph{kiai} karate scream that Doogie---who had been studying this stuff
+years longer than I---had once demonstrated. \emph{Kiai} translates as
+`spirit meeting', and the sound begins in the gut, the \emph{hara}, from
+where all energy and focus is drawn. The shout represents intense
+concentration and the will to overcome all enemies.
+
+However, I bungled the throw, and somehow it hit my big toe.
+
+The main impact was painful enough. This faded. But the following wave
+of dull agony made me crumple to the grass. Before I could lie down
+fully, Old Boy dragged me behind the wheelbarrow. His face was contorted
+in sympathy. `Now, \emph{that} hurt.'
+
+`Too,' I said. `Much. Pain. To. Speak.'
+
+`You daft dapeth,' said Jeff. `Where's 'ee to?'
+
+Somewhere in my excitement-soaked brain, a crinkly bit set to work
+unjumbling his words: \emph{`You fool! Where is the explosive device?'}
+
+`With us,' said Old Boy. `Behind the wheelbarrow.'
+
+`Gad, I'll bleddy 'ave 'ee. Put the frickin' pin back in 'un or you'll
+be goyn round cockless.'
+
+\emph{`By God, I would very much like to fight you. Disarm it, please,
+or suffer the consequent injuries.'}
+
+`Blimey,' sighed Old Boy. `You do it.'
+
+From the corner of a pain-squinted eye, I saw Old Boy take the grenade
+and toss it, under-arm, towards Big Jeff---who, for such a large man,
+was impressive in his escape reflexes. He crouched and swung his arms
+like a sprinter on the `b' of the `bang', but he was too late. The
+grenade bounced once, twice, and rolled into the shadow beneath his
+outstretched body.
+
+Big Jeff landed with a crunch that could only mean his customised paint
+gun had fired its last. His face bounced.
+
+Then the grenade went off.
+
+A supernova of neon-yellow paint sprayed the clearing. It reached Old
+Boy and me. Birds left the trees and a second, explosive clap echoed
+once off the hills.
+
+`Gad!' Big Jeff screamed.
+
+From piratical earring to Nike air pumps, he had been yellowed but good.
+
+I looked at Old Boy. `Oh.'
+
+`Dear.'
+
+`God.'
+
+Big Jeff moaned into the grass. His arm rose feebly, then fell.
+
+There was a leaf stuck to the paint on Old Boy's chin. I plucked it off.
+`Shall we assume that we're about to have a long conversation about the
+morals of leaving him versus the physical effort of moving him, and just
+run away?'
+
+Old Boy looked horrified. `Leave him here? Without \emph{question}.'
+
+\section*{}
+
+We loped like Transylvanian laboratory assistants back to the scene of
+the ambush, but it was deserted. We forged on. At the top of the hill
+the trees thinned, and we emerged onto a car park. Big Jeff's ice-cream
+van occupied the centre. It was an old Ford Transit with plastic whippy
+cones stuck to the corners. Doogie stood to the left of the van. The
+ice-cream men stood on the right. Our patrol was covered in yellow
+paint. The ice-cream men---who outnumbered us two-to-one---looked minty
+fresh. Three marshals in gold jerseys were collecting the guns.
+
+The paintballing had done its evil work: to a man, the warriors stood
+akimbo, as though their sexual organs needed separate score sheets for
+size. One or two looked like they were smoking cigarettes for the first
+time. They murmured with the grave resignation of soldiers expecting
+combat flashbacks, wives who hid the steak knives and children who
+wanted to know why daddy was living in the tree house. A bit rich, I
+thought, considering how easy the victory had been.
+
+`Phew, eh?' I said, laughing too loudly.
+
+Doogie's eyes were difficult to read behind his visor, but his words
+destroyed any mystery. `What does it look like? We were basted like
+turkeys. Like turkeys.' He licked his ice-cream. `What happened to you
+pair?'
+
+`We were protecting the flank.'
+
+`And?'
+
+`There was an---incident,' I said.
+
+`With Big Jeff,' said Old Boy.
+
+`I, for one,' I said, hoping to trump Doogie's indignation with some of
+my own, `would have liked to have known that we were playing against Big
+Jeff and his'---quieter---`soft-scoop horde.'
+
+`Well,' said Doogie, `you would have run a mile if I'd told you.'
+
+I hesitated, frowning at him. `Precisely.'
+
+`The horror,' said Old Boy. He coughed some paint into a handkerchief.
+`Is this toxic?'
+
+`You swallowed some edible paint,' said Doogie. `Big whoop. Try having
+paintballs fired at your skull, point blank.'
+
+While we waited in silence for the marshals to confirm the result, one
+of the ice-cream men approached. He had long hair and a dainty walk. I
+snorted. What a yokel. He stopped with his visor close to mine. He
+smelled nice.
+
+`Do you know where Jeff is?' she asked.
+
+`You're a woman,' I said, and the secretarial part of my mind filed the
+comment in a drawer marked `This is why you have so little sex'. `Is
+that you---you?'
+
+Though most of her face was covered by the mask, her mouth was free. She
+grinned. `Hello again.'
+
+Her accent was blank, unplaceable, but there was a Cornish aftertaste to
+her words, like water after the rose petals have been removed.
+
+`If you're looking for Jeff,' I said, `he's near the river.'
+
+`Barrington, Tweedie,' she called. `Go and get Jeff, will you? He's down
+there.'
+
+`Right away, miss,' said the shorter of the two. They hurried into the
+trees.
+
+She turned to me. `Would you like an ice-cream?'
+
+There was nothing to lean casually against. I couldn't flick a hand
+through my hair because it was hooded. I fell back on my verbal talents.
+`So, ice-cream, eh?'
+
+`Oh,' she said in a disappointed tone. `What happened?'
+
+`Well,' I replied, taken aback. `I, uh, suppose I get nervous around
+women.' I waited for her answer. I waited a long time. Then I realised
+she was staring over my shoulder. I followed her sightline.
+
+Big Jeff was emerging from the woods. Yellow paint had forced its way
+inside his clothes and erupted from his neck, wrists, flies, and ankles.
+His boots squelched. His face was grimly set, as though he anticipated
+amputation in a field hospital. The moaning skulls of Barrington and
+Tweedie had been rammed into Jeff's armpits as impromptu crutches, so
+that with each step, the two men seemed to visit the very brink of
+quadriplegia.
+
+The rest of the ice-cream men had stopped talking. The marshals were
+silent. The air was stretched with pregnant malice like the sticky
+camouflage over Big Jeff's belly, but his expression stopped even the
+bravest man---paintball-hardened veteran or not---from being the first
+to laugh.
+
+It occurred to me that both Old Boy and I had been masked throughout the
+episode, and now that we had mixed with Doogie, there would be no way
+that Big Jeff could identify us. We just had to keep our mouths shut.
+
+`Hello,' said Old Boy.
+
+\emph{Marvellous.}
+
+Big Jeff removed his mask.
+
+`Oi,' said a marshal. `Masks on until I tell you it's safe to take 'em
+off.'
+
+Big Jeff looked at him. This was enough for two of the ice-cream men to
+step towards the marshal and fold their arms. The marshal took the hint
+and backed away with his hands raised.
+
+Jeff lumbered up to Old Boy. He tapped his fingernail on Old Boy's
+visor. Sheepishly, Old Boy moved it up. Those blinking eyes pulled me
+back to the cold hour after dawn, when I had dragged him from his
+bakery.
+
+\emph{Damn,} I thought. \emph{And blast.}
+
+I pulled up my visor.
+
+`It was me,' I said. `I threw it.'
+
+Big Jeff gurned with malice. `You again.'
+
+I stood there looking at him. My glasses were still in my pocket. Big
+Jeff began to blink, but only with his left eye.
+
+Someone coughed delicately. It was a marshal. Now there were three
+others with him, and they stood between Big Jeff and the Young
+Contemptibles. The tallest marshal said, `Button it up, ladies. I have
+to declare a winner. Which of you are the leaders?'
+
+`Him,' said Doogie and I simultaneously.
+
+The marshal escorted me to the ice-cream van. From there he beckoned Big
+Jeff, who limped over and stood next me. He was still gurning. The
+marshal took our wrists.
+
+`By the powers vested in me, I declare the winner of this morning's
+altercation to be Bravo Sub Zero.' He thrust Jeff's arm upward. Applause
+dotted the car park like lazy clapping at Sunday afternoon cricket. One
+of the marshals took a picture. `Now chuck your masks into this bin.'
+
+Over the next few minutes, we peeled off our greenery and handed back
+our guns (except for Doogie; his went back in its adapted drill box, and
+then the boot of The Chariot of Phwoar, which he had driven up).
+Meanwhile, the ice-cream men loaded the van.
+
+Doogie was polishing his visor near the open boot of his car. I put my
+hand on the roof and leaned towards him.
+
+`Doogie,' I said, `did you set this thing up with Big Jeff just for a
+laugh?'
+
+`It's a coincidence.'
+
+`Look me in the eye when you say that.'
+
+Doogie raised his eyebrows and tipped his head to one side.
+
+`Well, perhaps not entirely a coincidence.'
+
+I groaned. `Doogie.'
+
+`The name you're looking for,' he said, `is Penelope.'
+
+`Penelope?'
+
+`So,' she said, walking around the car, `you \emph{do} remember me.'
+
+I laughed on reflex. Penelope maintained a half-smile and put her hands
+behind her back. She was wearing a sky-blue T-shirt. It stopped above
+her belly button, where a piercing twinkled.
+
+`Of course,' I said, `I don't remember you as a fan of paintball. You
+were always more of a fan of---'
+
+She looked at me expectantly.
+
+\emph{Blast,} I thought. \emph{She's not filling in the rest of my
+sentence.}
+
+I finished it myself with `---the other things.'
+
+Her eyes narrowed.
+
+\emph{Man down. Man very much down.}
+
+`You're right,' she said, skating over the moment. `It's my first time
+firing paint pellets. I'm only here to make up the numbers.' She
+gestured at the car. `But there seems to be hardly any of you.'
+
+Some distance away, Old Boy shouted, `The Trethewey brothers have the
+shits!'
+
+Penelope made a little `o' with her mouth at this fascinating fact.
+
+`Well,' said Doogie, closing the boot, `I thought that was great fun.
+And it was good to meet you again, Penelope.'
+
+I scowled at him. If he knew her, why hadn't he said anything?
+
+A xylophonic Greensleeves pealed over the woods. I looked towards the
+ice-cream van. The plastic, yellow whippy cones at the corners of the
+roof were revolving. Big Jeff was in the driver's seat, beckoning to
+Penelope.
+
+`I have to go,' she said.
+
+`Did you think any more about the job?' asked Doogie.
+
+\emph{What job?} I thought.
+
+Penelope began to back away.
+
+`OK,' she said, `we can try you both out and see what you think. Let's
+say tomorrow morning at 9 am.'
+
+Doogie nodded at Old Boy, who was walking towards us. He had put on his
+white baker's hat. `And our friend?'
+
+`Oh,' she said, passing him, `he can come too. Bye.'
+
+`Hello,' said Old Boy.
+
+\section*{}
+
+Though I could barely be heard over the theme from \emph{Bullitt} and
+the frequent double-declutching, I managed to shout, `What's this about
+a job?'
+
+`After your run-in with Big Jeff at the Goldie, I went back the next
+evening and got talking to Penelope.'
+
+I pulled an exasperated face in the direction of a passing kebab shop.
+`This doesn't make any sense. Jeff wants to kill me.'
+
+`It makes perfect sense. If I don't find regular money, soon, then Wade
+is going to kick me out. It's alright for you. You're buggering off to
+university.'
+
+Doogie emphasised his point with a sharp turn. I braced my foot against
+the dashboard. Seat belts in The Chariot of Phwoar existed in the
+abstract more than the concrete.
+
+`So Penelope works for Big Jeff?'
+
+`She's his niece.'
+
+`Huh.' I blinked a few times to let this reconfiguration of reality
+settle in. `Huh.'
+
+`And,' said Doogie, letting the back-end slip out briefly, `she says a
+third of the staff at Brown's have come down with \emph{déjà vu} or
+something.'
+
+`\emph{Déjà vu}?'
+
+`Food poisoning,' he said, nodding.
+
+`I'm not a doctor, but I don't think that's what \emph{déjà vu} means.'
+
+`How much will we be paid?' piped up Old Boy, leaning between the two
+front seats.
+
+`A shade over minimum wage,' Doogie said. `Well, that's for the drivers.
+For you two, it'll be a shade under.'
+
+`What?' said Old Boy.
+
+`Pardon?' I said. `Why I can't I be a driver?'
+
+`What?' said Old Boy.
+
+`Oh,' said Doogie, `let me think of a reason at random.'
+
+`I have a valid licence,' I said, `same as you.'
+
+`And a string of accidents in increasingly cheaper cars. You drive about
+as well as I speak French, \emph{amigo}.'
+
+`I'm not being paid under the minimum wage. It's a matter of pride.'
+
+`Nobody is being paid anything yet. We'll find out tomorrow morning if
+Big Jeff wants to give us a job or add us to the raspberry ripple.'
+
+`What?' said Old Boy.
+
+In the event, we got the last of the paint out of his ears using some
+methylated spirit and a chamois leather.
+
+
+
+
+\end{document}
