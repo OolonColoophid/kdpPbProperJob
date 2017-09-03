@@ -9,8 +9,8 @@
 % suitable for the interior of a paperback.
 % It's intended for the Amazon Kindle Paperback programme.
 
-% When generated*, open the PDF and delete the first, blank page,
-% as well as the blank page prior to the copyright notice.
+% When generated*, open the PDF and delete all blank pages,
+% except for the blank page after the dedication.
 % Upload this to the KDP system and it should flow appropriately
 % (with 'About the Author' being on a recto, or right-side leaf
 % and chapters beginning recto too)
@@ -77,7 +77,6 @@
 % Temporary page (to be manually deleted after creating PDF)
 \newpage\null\thispagestyle{empty}\newpage
 
-
 % Page: About the Author
 \par\vspace*{.1\textheight}{\centering \textsc{about the author}\par}
 \setlength{\parskip}{10pt}                                             % changes vertical space between paragraphs
@@ -109,6 +108,8 @@ Like Spike Milligan---but in a good way.
 
 
 % Page: By Ian Hocking
+
+
 
 \par\vspace*{.1\textheight}{\centering \textbf{By Ian Hocking}\par}
 \setlength{\parskip}{10pt}
@@ -154,7 +155,10 @@ Like Spike Milligan---but in a good way.
 
 \end{titlingpage}
 
-\newpage\thispagestyle{empty}
+% Temporary page (to be manually deleted after creating PDF)
+\newpage\null\thispagestyle{empty}\newpage
+
+
 \null\vfill
 \noindent
 \setlength{\parskip}{10pt}
@@ -194,7 +198,8 @@ Version 28972472
 % this to be zero from this point on 
 \setlength{\parskip}{0\baselineskip} % Note: author of Memoir warns this may cause problems
 
-
+% Temporary page (to be manually deleted after creating PDF)
+\newpage\null\thispagestyle{empty}\newpage
 
 \mainmatter
 
