@@ -10,12 +10,14 @@
 % It's intended for the Amazon Kindle Paperback programme.
 
 % When generated*, open the PDF and delete all blank pages,
-% except for the blank page after the dedication.
+% except for the blank page after the dedication (and those
+% that might appear before chapters).
+
 % Upload this to the KDP system and it should flow appropriately
 % (with 'About the Author' being on a recto, or right-side leaf
 % and chapters beginning recto too)
 
-% Use a Latex distribution for your platform: https://www.latex-project.org 
+% * Use a Latex distribution for your platform: https://www.latex-project.org 
 
 \documentclass[postvopaper, openright, twoside, onecolumn, final]{memoir}
 % postvopaper is 8x5 inch stock (untrimmed)
@@ -33,6 +35,8 @@
 % Set document options
 \settypeblocksize{5in}{3in}{*}             % Define the 'typeblock', i.e. the area that holds the main text
 \setlength\parindent{9pt}                  % Size of the paragraph indent
+
+\setulmarginsandblock{2.2cm}{2cm}{*} % Size of upper and lower margins
 
 % The default mode for LaTeX typesetting is \fussy where the (variation of) interword spacing in justified text is kept to a minimum. Following the \sloppy declaration there may be a much looser setting of justified text. \midsloppy is between the two. So:
 \midsloppy
@@ -58,6 +62,8 @@
   \cleardoublepage
   \let\ps@chapter\origps@chapter\pagestyle{headings}}
 \makeatother
+
+\frenchspacing % This should make the space between sentences smaller
 
 
 
@@ -109,7 +115,7 @@ Like Spike Milligan---but in a good way.
 
 % Page: By Ian Hocking
 
-
+\newpage
 
 \par\vspace*{.1\textheight}{\centering \textbf{By Ian Hocking}\par}
 \setlength{\parskip}{10pt}
@@ -155,11 +161,6 @@ Like Spike Milligan---but in a good way.
 
 \end{titlingpage}
 
-% Temporary page (to be manually deleted after creating PDF)
-\newpage\null\thispagestyle{empty}\newpage
-
-
-\null\vfill
 \noindent
 \setlength{\parskip}{10pt}
 
@@ -199,7 +200,7 @@ Version 28972472
 \setlength{\parskip}{0\baselineskip} % Note: author of Memoir warns this may cause problems
 
 % Temporary page (to be manually deleted after creating PDF)
-\newpage\null\thispagestyle{empty}\newpage
+\newpage\null\thispagestyle{empty}
 
 \mainmatter
 
@@ -209,8 +210,11 @@ Version 28972472
 \chapter{}
 
 \begin{flushright}
-\emph{Cornwall: Summer, 1999}
+\emph{Cornwall}
+
+\emph{Summer, 1999}
 \end{flushright}
+
 
 % Lettrine package handles drop cap; first brace includes drop cap;
 % second brace is small caps
